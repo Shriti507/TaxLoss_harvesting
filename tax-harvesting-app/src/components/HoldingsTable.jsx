@@ -1,4 +1,4 @@
-import HoldingRow from "./HoldingRow";
+import HoldingRow from "./HoldingRow.jsx";
 import { useCallback } from "react";
 
 const HoldingsTable = ({ holdings, selected, setSelected }) => {

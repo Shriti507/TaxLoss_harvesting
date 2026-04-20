@@ -1,4 +1,4 @@
-import Home from "./pages/home";
+import Home from "./pages/home.jsx";
 import "./index.css";
 
 function App() {

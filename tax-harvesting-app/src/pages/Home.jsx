@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import Navbar from "../components/Navbar";
-import SummaryCard from "../components/SummaryCard";
-import HoldingsTable from "../components/HoldingsTable";
-import { getHoldings, getCapitalGains } from "../api/mockApi";
-import { calculateCapitalGains } from "../utils/calculateCapitalGains";
-import { formatINR } from "../utils/format";
+import Navbar from "../components/Navbar.jsx";
+import SummaryCard from "../components/SummaryCard.jsx";
+import HoldingsTable from "../components/HoldingsTable.jsx";
+import { getHoldings, getCapitalGains } from "../api/mockApi.js";
+import { calculateCapitalGains } from "../utils/calculateCapitalGains.js";
+import { formatINR } from "../utils/format.js";
 
 const Home = () => {
   const [holdings, setHoldings] = useState([]);
