@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const [dark, setDark] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark-mode", dark);
-  }, [dark]);
+    document.body.className = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    localStorage.setItem("theme", next ? "dark" : "light");
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
@@ -20,7 +19,7 @@ const Navbar = () => {
       </div>
 
       <button className="theme-btn" onClick={toggle}>
-        {dark ? "☀ Light" : "🌙 Dark"}
+        {theme === "light" ? "🌙 Dark" : "☀ Light"}
       </button>
     </nav>
   );

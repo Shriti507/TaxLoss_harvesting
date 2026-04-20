@@ -1,14 +1,17 @@
 import HoldingRow from "./HoldingRow";
+import { useCallback } from "react";
 
 const HoldingsTable = ({ holdings, selected, setSelected }) => {
 
-  const toggle = (id) => {
-    if (selected.includes(id)) {
-      setSelected(selected.filter((x) => x !== id));
-    } else {
-      setSelected([...selected, id]);
-    }
-  };
+const toggle = useCallback((id) => {
+  setSelected((prev) => 
+    prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+  );
+}, [setSelected]);
+
+
+
+
 
   const toggleAll = () => {
     if (selected.length === holdings.length) {

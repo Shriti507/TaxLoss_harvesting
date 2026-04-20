@@ -6,13 +6,25 @@
   --bg-blue: #f7faff;
   --blue-grad: linear-gradient(135deg, #eff5ff 0%, #e2eeff 100%);
   --text-primary: #111827;
-  --text-muted: #6b7280;
+  --text-muted: #4b5563; 
   --border-light: #e6e8ec;
   --border-blue: #d4e3fb;
   --green: #10b981;
   --red: #ef4444;
   --blue-text: #2563eb;
   --font-inter: 'Inter', sans-serif;
+}
+
+body.dark {
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-blue: #1e293b;
+  --blue-grad: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+  --text-primary: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-light: #334155;
+  --border-blue: #1e3a8a;
+  --blue-text: #60a5fa;
 }
 
 body {
@@ -22,6 +34,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 15px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* NAVBAR */
@@ -172,9 +185,14 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
+body.dark .summary-card--blue .metric {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .metric-label {
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800; 
   color: var(--text-muted);
   letter-spacing: 0.5px;
 }
@@ -270,7 +288,7 @@ body {
 }
 
 .data-table tr.selected td {
-  background: #f0fdf4;
+  background: rgba(16, 185, 129, 0.08); 
 }
 
 /* ASSET ROW */

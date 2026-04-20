@@ -10,10 +10,14 @@ const Home = () => {
   const [holdings, setHoldings] = useState([]);
   const [capitalGains, setCapitalGains] = useState(null);
   const [selected, setSelected] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getHoldings().then(setHoldings);
-    getCapitalGains().then(setCapitalGains);
+    Promise.all([getHoldings(), getCapitalGains()]).then(([hData, cgData]) => {
+      setHoldings(hData);
+      setCapitalGains(cgData);
+      setLoading(false);
+    });
   }, []);
 
   const updated = useMemo(() => {
@@ -21,7 +25,7 @@ const Home = () => {
     return calculateCapitalGains(selected, capitalGains, holdings);
   }, [selected, capitalGains, holdings]);
 
-  if (!capitalGains || holdings.length === 0 || !updated) {
+  if (loading || !capitalGains || holdings.length === 0 || !updated) {
     return <div className="shell">Loading...</div>;
   }
 

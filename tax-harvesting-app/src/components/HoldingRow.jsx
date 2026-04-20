@@ -1,5 +1,5 @@
 import { formatINR } from "../utils/format";
-
+import { memo } from "react";
 const colors = {
   BTC: "#F7931A",
   ETH: "#627EEA",
@@ -73,4 +73,4 @@ const HoldingRow = ({ asset, selected, toggle }) => {
   );
 };
 
-export default HoldingRow;
+export default memo(HoldingRow);
