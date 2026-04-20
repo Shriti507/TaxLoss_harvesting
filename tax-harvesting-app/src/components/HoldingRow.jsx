@@ -1,4 +1,4 @@
-import { formatINR } from "../utils/format";
+import { formatINR } from "../utils/format.js";
 import { memo } from "react";
 const colors = {
   BTC: "#F7931A",

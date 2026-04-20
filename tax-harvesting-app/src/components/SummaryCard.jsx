@@ -1,4 +1,4 @@
-import { formatINR } from "../utils/format";
+import { formatINR } from "../utils/format.js";
 
 const SummaryCard = ({ title, data, isAfter }) => {
   const stcgNet = data.stcg.profits - data.stcg.losses;
