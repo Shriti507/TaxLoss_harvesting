@@ -98,10 +98,9 @@ src/
 ---
 
 ## Setup Instructions
-
-```bash
-git clone <your-repo-link>
-cd <project-folder>
+```
+git clone https://github.com/Shriti507/TaxLoss_harvesting.git 
+cd tax-harvesting-app
 npm install
 npm run dev
 ```
