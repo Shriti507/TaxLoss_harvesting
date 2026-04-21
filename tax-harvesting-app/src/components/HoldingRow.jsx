@@ -1,15 +1,5 @@
 import { formatINR } from "../utils/format.js";
 import { memo } from "react";
-const colors = {
-  BTC: "#F7931A",
-  ETH: "#627EEA",
-  SOL: "#14F195",
-  MATIC: "#8247E5",
-  ADA: "#0033AD",
-  DOGE: "#C2A633",
-  DOT: "#E6007A",
-  AVAX: "#E84142"
-};
 
 const HoldingRow = ({ asset, selected, toggle }) => {
   return (
@@ -18,28 +8,29 @@ const HoldingRow = ({ asset, selected, toggle }) => {
         <input
           type="checkbox"
           checked={selected}
-          onChange={() => toggle(asset.id)}
+          onChange={() => toggle(asset.coin)}
+          aria-label={`Select ${asset.coinName} for tax harvesting`}
         />
       </td>
 
       <td>
         <div className="asset-cell">
-          <div
-            className="token"
-            style={{ background: colors[asset.symbol] || "#555" }}
-          >
-            {asset.symbol.slice(0, 2)}
-          </div>
+          <img 
+            src={asset.logo} 
+            alt={asset.coin} 
+            className="token" 
+            style={{ objectFit: 'contain' }} 
+          />
           <div>
-            <div className="asset-name">{asset.coin}</div>
-            <div className="muted">{asset.symbol}</div>
+            <div className="asset-name">{asset.coinName}</div>
+            <div className="muted">{asset.coin}</div>
           </div>
         </div>
       </td>
 
       <td>
-        <div>{asset.qty}</div>
-        <div className="muted-cell">Avg {formatINR(asset.avgBuy)}</div>
+        <div>{asset.totalHolding}</div>
+        <div className="muted-cell">Avg {formatINR(asset.averageBuyPrice)}</div>
       </td>
 
       <td>
@@ -63,7 +54,7 @@ const HoldingRow = ({ asset, selected, toggle }) => {
       <td>
         {selected ? (
           <span className="sell-pill">
-            {formatINR(asset.qty * asset.currentPrice)}
+            {formatINR(asset.totalHolding * asset.currentPrice)}
           </span>
         ) : (
           <span className="sell-pill empty">—</span>

@@ -11,35 +11,46 @@ const Home = () => {
   const [capitalGains, setCapitalGains] = useState(null);
   const [selected, setSelected] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    Promise.all([getHoldings(), getCapitalGains()]).then(([hData, cgData]) => {
-      setHoldings(hData);
-      setCapitalGains(cgData);
-      setLoading(false);
-    });
+    const fetchDashboard = async () => {
+      try {
+        const [hData, cgData] = await Promise.all([getHoldings(), getCapitalGains()]);
+        setHoldings(hData);
+        setCapitalGains(cgData.capitalGains);
+      } catch (err) {
+        console.error("Dashboard Sync Failed:", err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDashboard();
   }, []);
 
   const updated = useMemo(() => {
-    if (!capitalGains || holdings.length === 0) return null;
+    if (!capitalGains) return null;
     return calculateCapitalGains(selected, capitalGains, holdings);
   }, [selected, capitalGains, holdings]);
 
-  if (loading || !capitalGains || holdings.length === 0 || !updated) {
-    return <div className="shell">Loading...</div>;
+  if (loading) {
+    return <div className="shell">Loading Dashboard...</div>;
   }
 
-  const pre =
-    capitalGains.stcg.profits -
-    capitalGains.stcg.losses +
-    capitalGains.ltcg.profits -
-    capitalGains.ltcg.losses;
+  if (error || !capitalGains || !updated) {
+    return (
+      <div className="shell" style={{ color: "var(--red)" }}>
+        Error loading harvesting data. Please try again.
+      </div>
+    );
+  }
 
-  const post =
-    updated.stcg.profits -
-    updated.stcg.losses +
-    updated.ltcg.profits -
-    updated.ltcg.losses;
+  const calculateNetTotal = (data) =>
+    (data.stcg.profits - data.stcg.losses) + (data.ltcg.profits - data.ltcg.losses);
+
+  const pre = calculateNetTotal(capitalGains);
+  const post = calculateNetTotal(updated);
 
   const savings = pre - post;
 

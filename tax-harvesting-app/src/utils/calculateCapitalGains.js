@@ -1,8 +1,10 @@
 export const calculateCapitalGains = (selectedIds, initial, holdings) => {
-  const updated = JSON.parse(JSON.stringify(initial));
+  const updated = typeof structuredClone === "function" 
+    ? structuredClone(initial)
+    : JSON.parse(JSON.stringify(initial));
 
   selectedIds.forEach((id) => {
-    const asset = holdings.find((h) => h.id === id);
+    const asset = holdings.find((h) => h.coin === id);
     if (!asset) return;
 
     if (asset.stcg.gain > 0) {

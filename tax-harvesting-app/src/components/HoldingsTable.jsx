@@ -17,9 +17,11 @@ const toggle = useCallback((id) => {
     if (selected.length === holdings.length) {
       setSelected([]);
     } else {
-      setSelected(holdings.map((h) => h.id));
+      setSelected(holdings.map((h) => h.coin));
     }
   };
+
+  const selectedSet = new Set(selected);
 
   return (
     <div className="holdings-panel">
@@ -39,6 +41,7 @@ const toggle = useCallback((id) => {
                   type="checkbox"
                   checked={holdings.length > 0 && selected.length === holdings.length}
                   onChange={toggleAll}
+                  aria-label="Toggle all assets"
                 />
               </th>
               <th>Asset</th>
@@ -53,9 +56,9 @@ const toggle = useCallback((id) => {
           <tbody>
             {holdings.map((h) => (
               <HoldingRow
-                key={h.id}
+                key={h.coin}
                 asset={h}
-                selected={selected.includes(h.id)}
+                selected={selectedSet.has(h.coin)}
                 toggle={toggle}
               />
             ))}
